@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pide tu pizza</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/script.js" defer></script>
+</head>
+
+<body>
+  <div class="container" id="mainDiv">
+    <form action="#" method="post">
+      <fieldset>
+        <legend class="form__titulo">Realizar Pedido</legend>
+        <fieldset id="contacto">
+          <legend>Tus datos de contacto</legend>
+          <div class="fieldset-row">
+            <div class="fieldset-column"><label>Introduce tus datos:</label>
+              <div class="inline-column"><label id="labelCon1" for="ConText1">Nombre </label>
+                <input type="Text" id="ConText1" placeholder="Nombre" required="true">
+              </div>
+              <div class="inline-column"><label id="labelCon3" for="ConText3">Apellidos </label>
+                <input type="Text" id="ConText3" placeholder="Apellidos" required="true">
+              </div>
+            </div>
+            <div class="fieldset-column">
+              <div class="inline-column"><label id="labelCon2" for="ConText2">Dirección </label>
+                <input type="Text" id="ConText2" placeholder="Dirección" required="true">
+              </div>
+              <div class="inline-column"><label id="labelCon4" for="ConText4">Teléfono </label>
+                <input type="Text" id="ConText4" placeholder="Telefono" required="true">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset id="opciones-pizza">
+          <legend>¿Cómo te apetece la pizza?</legend>
+          <div class="fieldset-row">
+            <div class="fieldset-column"><label>Elige los ingredientes</label>
+              <div class="inline-column">
+                <input type="checkbox" id="cbox1" value="Quesos">
+                <label id="labelcbox1" for="cbox1">Mezcla de quesos</label>
+              </div>
+              <div class="inline-column">
+                <input type="checkbox" id="cbox2" value="Champiñones">
+                <label id="labelcbox2" for="cbox2">Champiñones</label>
+              </div>
+              <div class="inline-column">
+                <input type="checkbox" id="cbox3" value="Bacon">
+                <label id="labelcbox3" for="cbox3">Bacon</label>
+              </div>
+              <div class="inline-column"><input type="checkbox" id="cbox4" value="Aceitunas">
+                <label id="labelcbox4" for="cbox4">Tomates cherry</label>
+              </div>
+              <div class="inline-column"><input type="checkbox" id="cbox5" value="Pollo">
+                <label id="labelcbox5" for="cbox5">Pollo</label>
+              </div>
+            </div>
+            <div class="fieldset-column">
+              <img alt="pizza1" src="images/pizza1.jpg" width="200">
+            </div>
+          </div>
+          <div class="fieldset-row">
+            <div class="fieldset-column">
+
+              <label>Elige el tipo de masa</label>
+              <div class="inline-column">
+                <input type="radio" id="rb1" name="rbmasa" value="fina" required="required">
+                <label id="labelrb1" for="rb1">Fina</label>
+              </div>
+              <div class="inline-column">
+                <input type="radio" id="rb2" name="rbmasa" value="normal" required="required">
+                <label id="labelrb2" for="rb2">Normal</label>
+              </div>
+              <div class="inline-column">
+                <input type="radio" id="rb3" name="rbmasa" value="extra" required="required">
+                <label id="labelrb3" for="rb3">Extra</label>
+              </div>
+              <div class="inline-column">
+                <input type="radio" id="rb4" name="rbmasa" value="extraqueso" required="required">
+                <label id="labelrb4" for="rb4">Extra con queso</label>
+              </div>
+            </div>
+            <div class="fieldset-column">
+              <label>Elige el tamaño</label>
+              <div class="inline-column">
+                <input type="radio" id="rb5" name="rbtam" value="pequeña" required="required">
+                <label id="labelrb5" for="rb5">Pequeña</label>
+              </div>
+              <div class="inline-column">
+                <input type="radio" id="rb6" name="rbtam" value="mediana" required="required">
+                <label id="labelrb6" for="rb6">Mediana</label>
+              </div>
+              <div class="inline-column">
+                <input type="radio" id="rb7" name="rbtam" value="familiar" required="required">
+                <label id="labelrb7" for="rb7">Grance</label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset id="restaurante">
+          <legend>Sobre el pedido</legend>
+          <div class="fieldset-row">
+            <div class="fieldset-column">
+              <label for="restaurante">Elige un restaurante</label>
+              <select name="restaurante" id="restaurante" required="required">
+                <option value="">Elige un restaurante</option>
+                <option value="res1">La casina de Paulina</option>
+                <option value="res2">Ixchel's Hollywok</option>
+                <option value="res3">PizzalPilpilar</option>
+                <option value="res4">La Pizza Pagana de Jana</option>
+              </select>
+              <label for="textArea">Introduce aquí información sobre alergias u otras notas adicionales:</label>
+              <textarea id="textArea" cols="40" rows="4" placeholder="Escribe aquí:"></textarea>
+            </div>
+            <div class="fieldset-column">
+              <img alt="pizzeria" src="images/pizzeria.jpg" width="300">
+            </div>
+          </div>
+          <div class="fieldset-row">
+            <div class="fieldset-column inline-column">
+              <input type="checkbox" name="terminos" id="terminos" value="s" required="required">
+              <label for="terminos">Acepto los términos y condiciones</label>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset id="acciones">
+          <button type="submit" name="submit" id="submit" class="cta">Realizar Pedido</button>
+          <button type="reset" name="reset" id="reset">Borrar formulario</button>
+        </fieldset>
+      </fieldset>
+    </form>
+  </div>
+</body>
+
+</html>
