@@ -1,5 +1,3 @@
-
-
 window.onload = function(){
 
     //============= Validación del input EMAIL =============
