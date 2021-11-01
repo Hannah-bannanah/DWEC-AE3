@@ -50,7 +50,8 @@ fieldset legend {
 	flex-direction: row;
 }
 
-input, 
+input[type="radio"], 
+input[type="checkbox"]
 select,
 input + label {
 	cursor: pointer;
