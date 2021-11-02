@@ -8,7 +8,6 @@ window.onload = function(){
    // email.onsubmit = cumplimentado() //Que el campo no esté vacío al hacer clic en Enviar
    
    var validacionEnvio;
-    
 
    //Validación del campo nombre
 

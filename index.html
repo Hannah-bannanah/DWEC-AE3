@@ -13,29 +13,29 @@
 
 <body>
   <div class="container" id="mainDiv">
-    <form action="#" method="post">
+    <form action="#" method="get">
       <fieldset>
         <legend class="form__titulo">Realizar Pedido</legend>
         <fieldset id="contacto">
-          <legend>Tus datos de contacto</legend>
+          <legend>Introduce tus datos</legend>
           <div class="fieldset-row">
-            <div class="fieldset-column"><label>Introduce tus datos:</label>
+            <div class="fieldset-column">
               <div class="inline-column"><label id="labelCon1" for="ConText1">Nombre </label>
-                <input type="Text" id="ConText1" placeholder="Nombre" required="true">
+                <input type="Text" id="ConText1" placeholder="Nombre" required>
               </div>
               <div class="inline-column"><label id="labelCon3" for="ConText3">Apellidos </label>
-                <input type="Text" id="ConText3" placeholder="Apellidos" required="true">
+                <input type="Text" id="ConText3" placeholder="Apellidos" required>
               </div>
             </div>
             <div class="fieldset-column">
               <div class="inline-column"><label id="labelCon2" for="ConText2">Dirección </label>
-                <input type="Text" id="ConText2" placeholder="Dirección" required="true">
+                <input type="Text" id="ConText2" placeholder="Dirección" required>
               </div>
               <div class="inline-column"><label  for="telefono">Teléfono </label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required="true">
+                <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required>
               </div>
               <div class="inline-column"><label id="labelCon5" for="email">Email </label>
-                <input type="email" id="email" placeholder="Email" required="true">
+                <input type="email" id="email" placeholder="Email" required>
               </div>
             </div>
           </div>
@@ -45,22 +45,22 @@
           <div class="fieldset-row">
             <div class="fieldset-column"><label>Elige los ingredientes</label>
               <div class="inline-column">
-                <input type="checkbox" id="cbox1" value="Quesos">
-                <label id="labelcbox1" for="cbox1">Mezcla de quesos</label>
+                <input type="checkbox" id="ing-queso" name="queso" value="true">
+                <label for="ing-queso">Mezcla de quesos</label>
               </div>
               <div class="inline-column">
-                <input type="checkbox" id="cbox2" value="Champiñones">
-                <label id="labelcbox2" for="cbox2">Champiñones</label>
+                <input type="checkbox" id="ing-champiniones" name="champiniones" value="true">
+                <label for="ing-champiniones">Champiñones</label>
               </div>
               <div class="inline-column">
-                <input type="checkbox" id="cbox3" value="Bacon">
-                <label id="labelcbox3" for="cbox3">Bacon</label>
+                <input type="checkbox" id="ing-bacon" name="bacon" value="true">
+                <label for="ing-bacon">Bacon</label>
               </div>
-              <div class="inline-column"><input type="checkbox" id="cbox4" value="Aceitunas">
-                <label id="labelcbox4" for="cbox4">Tomates cherry</label>
+              <div class="inline-column"><input type="checkbox" id="ing-aceitunas" name="aceitunas" value="true">
+                <label for="ing-aceitunas">Tomates cherry</label>
               </div>
-              <div class="inline-column"><input type="checkbox" id="cbox5" value="Pollo">
-                <label id="labelcbox5" for="cbox5">Pollo</label>
+              <div class="inline-column"><input type="checkbox" id="ing-pollo" name="pollo" value="true">
+                <label for="ing-pollo">Pollo</label>
               </div>
             </div>
             <div class="fieldset-column">
@@ -105,7 +105,7 @@
             </div>
           </div>
         </fieldset>
-        <fieldset id="restaurante">
+        <fieldset id="pedido">
           <legend>Sobre el pedido</legend>
           <div class="fieldset-row">
             <div class="fieldset-column">
