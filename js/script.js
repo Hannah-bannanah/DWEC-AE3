@@ -1,5 +1,3 @@
-
-
 window.onload = function(){
 
     //============= Validación del input EMAIL =============
@@ -11,6 +9,22 @@ window.onload = function(){
    
    var validacionEnvio;
     
+
+   //Validación del campo nombre
+
+   document.getElementById("nombre").onclick = function(){
+   
+        function validarNombre() {
+        valor = document.getElementById("nombre").value;
+        if (valor == null || valor.length == 0 || /^\s+$/.test(valor)) {
+            alert('Falta Llenar Nombre');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+   //Validación del campo email
 
 
    document.getElementById("email").onclick = function(){

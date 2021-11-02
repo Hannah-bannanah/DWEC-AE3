@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pide tu pizza</title>
   <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/script.js" defer></script>
+  <!-- <script src="./js/script.js" defer></script> -->
+  <script src="./js/validacion.js" defer></script>
 </head>
 
 <body>
@@ -30,11 +31,11 @@
               <div class="inline-column"><label id="labelCon2" for="ConText2">Dirección </label>
                 <input type="Text" id="ConText2" placeholder="Dirección" required="true">
               </div>
-              <div class="inline-column"><label id="labelCon4" for="ConText4">Teléfono </label>
-                <input type="Text" id="ConText4" placeholder="Telefono" required="true">
+              <div class="inline-column"><label  for="telefono">Teléfono </label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required="true">
               </div>
               <div class="inline-column"><label id="labelCon5" for="email">Email </label>
-                <input type="Text" id="email" placeholder="Email" required="true">
+                <input type="email" id="email" placeholder="Email" required="true">
               </div>
             </div>
           </div>
@@ -133,6 +134,7 @@
         <fieldset id="acciones">
           <button type="submit" name="submit" id="submit" class="cta">Realizar Pedido</button>
           <button type="reset" name="reset" id="reset">Borrar formulario</button>
+          <button type="button" name= "pruebas" id="pruebas">Pruebas</button>
         </fieldset>
       </fieldset>
     </form>
