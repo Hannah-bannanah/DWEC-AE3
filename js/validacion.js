@@ -21,12 +21,16 @@ function validarTlf() {
  *============= Validacion minimo ingredientes =============
  */
 //funcion en construccion
+/**
+ * Funcion que valida que hay al menos un ingrediente seleccionado
+ * @returns true si al menos un ingrediente ha sido seleccionado, false si no
+ */
 function validarMinIngredientes() {
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = document.querySelectorAll('#opciones-pizza input[type="checkbox"]')
   for (let chkbox of checkboxes) {
-    if (chkbox.selected) console.log('selected!')
+    if (chkbox.checked) return true;
   }
-  return true;
+  return false;
 }
 
 /*
@@ -36,11 +40,11 @@ function validarFormulario(event) {
   // validarCamposTexto();
   if (!validarTlf()) {
     event.preventDefault();
-    console.log("mete un telefono espaniol de espania");
+    console.log("Solo aceptamos telefonos moviles con prefijo +34");
   }
   if (!validarMinIngredientes()) {
     event.preventDefault();
-    console.log("uh-oh!");
+    console.log("Elige al menos un ingrediente para tu pizza");
   }
   // validarEmail();
   // validarMinIngredientes();
