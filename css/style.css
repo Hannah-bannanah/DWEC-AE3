@@ -8,7 +8,7 @@ body {
 
 form {
 	width: 80%;
-	max-width: 60rem;
+	max-width: 70rem;
 	margin: 1rem auto
 }
 
@@ -48,10 +48,11 @@ fieldset legend {
 
 .inline-column {
 	flex-direction: row;
+	align-items: flex-start;
 }
 
 input[type="radio"], 
-input[type="checkbox"]
+input[type="checkbox"],
 select,
 input + label {
 	cursor: pointer;
@@ -96,7 +97,7 @@ button:active {
 	color:purple;
 }
 
-.validar:invalid {
+/* .validar:invalid {
 	background: #f8aaaa;
 	border: 1px solid #d60303;
 	outline:  1px solid #d60303;
@@ -118,11 +119,43 @@ input.validar:invalid {
 input[type="radio"].validar:invalid {
 	outline: none;
 	border-radius: 50%;
-}
+} */
 
 #contacto .inline-column {
 	padding: 2%;
 }
 
+.mensaje-error {
+	font-family: 'Courier New', Courier, monospace;
+	/* font-family: 'Times New Roman', Times, serif; */
+	font-size: 0.8rem;
+	line-height: 0.8rem;
+	margin: 3px;
+}
 
+/* input[type="text"].invalido,
+input[type="tel"].invalido,
+input[type="email"].invalido {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: 1px solid #d60303;
+	border: 1px solid #d60303;
+	border-radius: 2px;
+	background-color: #f8aaaa !important;
+} */
 
+input.invalido {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: 1px solid #d60303;
+	border: 1px solid #d60303;
+	border-radius: 2px;
+	background-color: #f8aaaa;
+}
+
+input[type="checkbox"].invalido {
+	width:0.7rem;
+	height: 0.7rem;
+}
