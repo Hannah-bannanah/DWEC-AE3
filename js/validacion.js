@@ -4,6 +4,9 @@ window.onload = function () {
 
   // pruebas.addEventListener('click', miFuncion);
 
+  //validacion inmediata del telefono
+  telefono.addEventListener('keyup', validarTlf);
+
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
@@ -23,7 +26,7 @@ window.onload = function () {
 function validarFormulario(event) {
   let valido = true;
   // validarCamposTexto();
-  if (!validarTlf()) valido = false;
+  if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
   // validarEmail();
 
@@ -38,19 +41,33 @@ function validarFormulario(event) {
 /*
  *============= Validacion telefono =============
  */
+
 /**
  * Funcion que verifica que el telefono tiene el formato de un movil espaniol
  * @returns true si el numero de telefono es valido, false si no
  */
-function validarTlf() {
+ function validarTlf(event) {
   const mensajeError = telefono.nextElementSibling;
 
-  const pattern = /^\+346[0-9]{8}$/;
   let inputUsuario = telefono.value.split(" ").join(""); //elimina todos los espacios del input
+  const patternString = "^\\+346[0-9]{1,8}$";
+  let pattern = new RegExp(patternString);
+
+  // si estamos validando al teclear, modificamos el patron
+  // para ajustarse a la longitud del input del usuario
+  if (event.type === "keyup") {
+    if (inputUsuario.length < 1) null // no modificamos el formato inicial
+    else if (inputUsuario.length < 5) {
+      pattern = new RegExp(patternString.substring(0, inputUsuario.length + 2));
+    } else if (inputUsuario.length < 12) {
+      pattern = new RegExp(patternString.slice(0, -1));
+    }
+  }
+  
   const valido = pattern.test(inputUsuario); //comparamos el telefono introducido con el formato esperado
   if (!valido) {
     telefono.classList.add("invalido");
-    mensajeError.textContent = "Introduce un telefono movil con prefijo +34";
+    mensajeError.textContent = "Introduce un telefono movil de 9 digitos con prefijo +34";
   } else {
     if (telefono.classList.contains("invalido"))
       telefono.classList.remove("invalido");
@@ -58,6 +75,7 @@ function validarTlf() {
   }
 
   return valido;
+  
 }
 
 /*
@@ -109,7 +127,6 @@ function validarMinIngredientes() {
  */
 function validarTerminos() {
   const mensajeError = document.querySelector(".terminos__error");
-  console.log(terminos.checked);
 
   if (!terminos.checked) {
     terminos.classList.add("invalido");
