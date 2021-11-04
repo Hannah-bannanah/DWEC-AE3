@@ -7,6 +7,8 @@ window.onload = function () {
   //validacion inmediata del telefono
   telefono.addEventListener('keyup', validarTlf);
 
+  //validacion inmediata de la direccion
+
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
@@ -79,6 +81,19 @@ function validarFormulario(event) {
 }
 
 /*
+ *============= Validacion direccion =============
+ */
+/**
+ * Funcion que verifica que la direccion cumple los siguientes requisitos:
+ *    - El campo contiene caracteres (no está relleno de espacios)
+ *    - Debe contener letras, numeros y caracteres especiales (".", ",", "º")
+ *    - El numero maximo de caracteres es 100
+ * @returns true si la direccion es valida, false si no
+ */
+
+
+
+/*
  *============= Validacion minimo ingredientes =============
  */
 //funcion en construccion
@@ -143,4 +158,8 @@ function validarTerminos() {
 
 /*
  *============= Funciones auxiliares =============
+ */
+
+ /*
+ *============= CALCULO DE PRECIO =============
  */
