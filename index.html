@@ -29,7 +29,8 @@
           <div class="fieldset-column">
             <div class="inline-column">
               <label id="labelCon2" for="ConText2">Dirección </label>
-              <input type="Text" id="ConText2" name="direccion" placeholder="Dirección" required>
+              <input type="Text" id="ConText2" name="direccion" placeholder="Dirección" maxlength="100" required>
+              <p class="mensaje-error direccion-error"></p>
             </div>
             <div class="inline-column">
               <label for="telefono">Teléfono </label>
@@ -76,34 +77,34 @@
 
             <label>Elige el tipo de masa</label>
             <div class="inline-column">
-              <input type="radio" name="masa" id="rb1" name="rbmasa" value="fina" required>
+              <input type="radio" name="masa" id="radiobutton1" value="fina" required>
               <label id="labelrb1" for="rb1">Fina</label>
             </div>
             <div class="inline-column">
-              <input type="radio" name="masa" id="rb2" name="rbmasa" value="normal">
+              <input type="radio" name="masa" id="radiobutton2" value="normal">
               <label id="labelrb2" for="rb2">Normal</label>
             </div>
             <div class="inline-column">
-              <input type="radio" name="masa" id="rb3" name="rbmasa" value="extra">
+              <input type="radio" name="masa" id="radiobutton3" value="extra">
               <label id="labelrb3" for="rb3">Extra</label>
             </div>
             <div class="inline-column">
-              <input type="radio" name="masa" id="rb4" name="rbmasa" value="extraqueso">
+              <input type="radio" name="masa" id="radiobutton4" value="extraqueso">
               <label id="labelrb4" for="rb4">Extra con queso</label>
             </div>
           </div>
           <div class="fieldset-column">
             <label>Elige el tamaño</label>
             <div class="inline-column">
-              <input type="radio" name="tamanio" id="rb5" name="rbtam" value="pequeña" required>
+              <input type="radio" name="tamanio" id="radiobutton5" value="pequeña" required>
               <label id="labelrb5" for="rb5">Pequeña</label>
             </div>
             <div class="inline-column">
-              <input type="radio" name="tamanio" id="rb6" name="rbtam" value="mediana">
+              <input type="radio" name="tamanio" id="radiobutton6" value="mediana">
               <label id="labelrb6" for="rb6">Mediana</label>
             </div>
             <div class="inline-column">
-              <input type="radio" name="tamanio" id="rb7" name="rbtam" value="familiar">
+              <input type="radio" name="tamanio" id="radiobutton7" value="familiar">
               <label id="labelrb7" for="rb7">Grande</label>
             </div>
           </div>
