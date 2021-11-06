@@ -7,8 +7,6 @@ window.onload = function () {
   //validacion inmediata del telefono
   telefono.addEventListener('keyup', validarTlf);
 
-  //validacion inmediata de la direccion
-
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
@@ -28,9 +26,11 @@ window.onload = function () {
 function validarFormulario(event) {
   let valido = true;
   // validarCamposTexto();
+  if (!validarDireccion()) valido = false;
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
   // validarEmail();
+  // validarRadio();
 
   if (!validarTerminos()) valido = false;
 
@@ -85,12 +85,46 @@ function validarFormulario(event) {
  */
 /**
  * Funcion que verifica que la direccion cumple los siguientes requisitos:
- *    - El campo contiene caracteres (no está relleno de espacios)
- *    - Debe contener letras, numeros y caracteres especiales (".", ",", "º")
- *    - El numero maximo de caracteres es 100
+ *    - El campo contiene caracteres (no está relleno únicamente de espacios)
+ *    - Debe contener al menos: una mayúscula, un número
+ *    - La longitud mínima de la cadena es 40 caracteres
  * @returns true si la direccion es valida, false si no
  */
 
+ function validarDireccion (){
+  //Seleccionamos el primer nodo hijo que deriva del nodo <p></p> cuya clase es "mensaje-error direccion-error"
+  const mensajeErrorDireccion = document.querySelector(".direccion-error");
+  let valido=false;
+  const caracteresString = "^[A-Z]{1,}[0-9]{1,}";
+  let caracteres = new RegExp(caracteresString);
+
+  //En primer lugar, eliminamos los espacios duplicados y los espacios al comienzo y al final del input
+  let direccion=document.getElementById("ConText2");
+  let input= direccion.value.trim();
+  input.replace(/ {2,}/g, ' ');
+
+  //En segundo lugar, comprobamos que el input contiene, al menos, 40 caracteres y contiene una mayus y un numero
+  if (input.length<20 && caracteres.test(input)==false){
+    valido= false;
+  }else{
+    valido=true;
+  }
+  
+  //Validamos el contenido final
+  
+  if (!valido) {
+    direccion.classList.add("invalido");
+    mensajeErrorDireccion.textContent = 
+      "El campo direccion debe contener min 40 caracteres, una mayuscula y un numero";
+  } else {
+    if (direccion.classList.contains("invalido"))
+      direccion.classList.remove("invalido");
+    mensajeErrorDireccion.textContent = "";
+  }
+
+  return valido;
+
+}
 
 
 /*
