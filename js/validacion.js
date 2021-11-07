@@ -29,7 +29,7 @@ function validarFormulario(event) {
   if (!validarDireccion()) valido = false;
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
-  // validarEmail();
+  if (!validarEmail()) valido = false;
   // validarRadio();
 
   if (!validarTerminos()) valido = false;
@@ -120,6 +120,58 @@ function validarFormulario(event) {
     if (direccion.classList.contains("invalido"))
       direccion.classList.remove("invalido");
     mensajeErrorDireccion.textContent = "";
+  }
+
+  return valido;
+
+}
+
+
+/*
+ *============= Validacion email =============
+ */
+/**
+ * Funcion que verifica que el email cumple los siguientes requisitos:
+ *    + Elimina cualquier espacio introducido.
+ *    + Debe contener solo una "@".
+ *    - Permitir la inclusión de: caracteres del abecedario, en mayusculas o minusculas, números, ".", "-" y "_"
+ *    + Debe contener al menos un punto.
+ *    + La "@" y el punto no puden estar inmediatamente juntos.
+ * @returns true si el email es válido, false si no
+ */
+
+ function validarEmail (){
+  //Seleccionamos el primer nodo hijo que deriva del nodo <p> cuya clase es "mensaje-error email-error"
+  const mensajeErrorEmail = document.querySelector(".email-error");
+  let valido=false;
+  /* Este bloque [^@] comienza por cualquier caracterer que no sea "@", y esos caracteres pueden aparecer 1 o + veces.
+  *  Cuando aparece una "@" cierra ese bloque.
+  *  Después de la "@" comienza otro nuevo bloque en el que aparecerá cualquier caracter diferente a la "@" una o + veces.
+  *  Después de este bloque debe aparecer un "."
+  *  Después del punto puede aparecer cualquier caracter que no sea una "@".*/
+  const patternEmail = "^[^@]+@[^@]+\.[^@]+$"; 
+  let patronEmail = new RegExp(patternEmail);
+
+  //En primer lugar, eliminamos cualquier espacio introducido
+  let inputEmail=email.value.split(" ").join("");
+
+  //En segundo lugar, comprobamos que el input cumple con el patron definido
+  if (patronEmail.test(inputEmail)==false){
+    valido= false;
+  }else{
+    valido=true;
+  }
+  
+  //Validamos el contenido final
+  
+  if (!valido) {
+    email.classList.add("invalido");
+    mensajeErrorEmail.textContent = 
+      "El email introducido no tiene el formato correcto";
+  } else {
+    if (email.classList.contains("invalido"))
+      email.classList.remove("invalido");
+    mensajeErrorEmail.textContent = "";
   }
 
   return valido;
