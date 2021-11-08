@@ -39,7 +39,8 @@ function validarFormulario(event) {
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
   if (!validarEmail()) valido = false;
-  // validarRadio();
+  if (!validarMasa()) valido= false;
+  // validarTAMANIO();
 
   if (!validarTerminos()) valido = false;
 
