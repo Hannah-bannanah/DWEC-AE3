@@ -165,3 +165,9 @@ input[type="checkbox"].invalido {
 	width:0.7rem;
 	height: 0.7rem;
 }
+
+input[type="radio"].invalido {
+	width:10px;
+	height:10px;
+	border-radius: 20px;
+}

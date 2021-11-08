@@ -25,7 +25,10 @@ window.onload = function () {
   }
 
   //validacion inmediata de los radio button TAMANIO
-  
+  const tamanioRadioButton = document.getElementsByName("tamanio");
+  for(var i=0; i<tamanioRadioButton.length; i++) {
+    tamanioRadioButton[i].addEventListener("click", validarTamanio)
+  }
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
   terminos.addEventListener("click", validarTerminos);
@@ -43,9 +46,8 @@ function validarFormulario(event) {
   if (!validarEmail()) valido = false;
   // validarRadio();
   // if (!validarRestaurante()) valido = false;
-
   if (!validarMasa()) valido= false;
-  // validarTAMANIO();
+  if (!validarTamanio()) valido= false;
 
 
   if (!validarTerminos()) valido = false;
@@ -248,7 +250,7 @@ function validarMinIngredientes() {
 
 function validarMasa(){
   let valido = false;
-  const mensajeErrorMasa = document.querySelector(".mensaje-error-masa");
+  const mensajeErrorMasa = document.querySelector(".error-masa");
   const masaRadioButton = document.getElementsByName("masa");
 
   // Iteramos por los radio button para ver si alguno esta marcado
@@ -280,7 +282,32 @@ function validarMasa(){
  * @returns true si se han aceptado, false si no
  */
 function validarTamanio(){
-  mensaje-error-tamanio
+  let valido = false;
+  const mensajeErrorTamanio = document.querySelector(".error-tamanio");
+  const tamanioRadioButton = document.getElementsByName("tamanio");
+
+  // Iteramos por los radio button para ver si alguno esta marcado
+  for(var i=0; i<tamanioRadioButton.length; i++) {
+    if(tamanioRadioButton[i].checked) {
+        valido = true;
+        break;
+    }
+}
+
+  // Iteramos por los radio button para aniadir o quitar la clase "invalido"
+  for (var j=0; j<tamanioRadioButton.length; j++){
+    if (!valido){
+      tamanioRadioButton[j].classList.add("invalido");
+    }else if (tamanioRadioButton[j].classList.contains("invalido")){
+      tamanioRadioButton[j].classList.remove("invalido");
+    }
+  }
+
+//Editamos el mensaje de error segun el resultado de la validacion
+  if (valido) mensajeErrorTamanio.textContent = "";
+  else mensajeErrorTamanio.textContent = "Elige el tipo de masa";
+
+  return valido;
 }
 
 /**
