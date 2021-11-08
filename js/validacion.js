@@ -305,7 +305,7 @@ function validarTamanio(){
 
 //Editamos el mensaje de error segun el resultado de la validacion
   if (valido) mensajeErrorTamanio.textContent = "";
-  else mensajeErrorTamanio.textContent = "Elige el tipo de masa";
+  else mensajeErrorTamanio.textContent = "Elige el tamaño de la pizza";
 
   return valido;
 }
