@@ -2,10 +2,10 @@ window.onload = function () {
   //event listeners
   submit.addEventListener("click", validarFormulario); //validacion del formulario completo
 
-  // pruebas.addEventListener('click', miFuncion);
+  // pruebas.addEventListener('click', validarRestaurante);
 
   //validacion inmediata del telefono
-  telefono.addEventListener('keyup', validarTlf);
+  telefono.addEventListener("keyup", validarTlf);
 
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
@@ -14,6 +14,9 @@ window.onload = function () {
   ingredientesChkboxes.forEach((chkbox) =>
     chkbox.addEventListener("click", validarMinIngredientes)
   );
+
+  // validacion inmediata de seleccion de restaurante
+  restaurante.onchange = validarRestaurante; //valida cada vez que cambia la seleccion
 
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
@@ -31,7 +34,7 @@ function validarFormulario(event) {
   if (!validarMinIngredientes()) valido = false;
   if (!validarEmail()) valido = false;
   // validarRadio();
-
+  // if (!validarRestaurante()) valido = false;
   if (!validarTerminos()) valido = false;
 
   if (!valido) {
@@ -48,7 +51,7 @@ function validarFormulario(event) {
  * Funcion que verifica que el telefono tiene el formato de un movil espaniol
  * @returns true si el numero de telefono es valido, false si no
  */
- function validarTlf(event) {
+function validarTlf(event) {
   const mensajeError = telefono.nextElementSibling;
 
   let inputUsuario = telefono.value.split(" ").join(""); //elimina todos los espacios del input
@@ -58,18 +61,20 @@ function validarFormulario(event) {
   // si estamos validando al teclear, modificamos el patron
   // para ajustarse a la longitud del input del usuario
   if (event.type === "keyup") {
-    if (inputUsuario.length < 1) null // no modificamos el formato inicial
+    if (inputUsuario.length < 1) null;
+    // no modificamos el formato inicial
     else if (inputUsuario.length < 5) {
       pattern = new RegExp(patternString.substring(0, inputUsuario.length + 2));
     } else if (inputUsuario.length < 12) {
       pattern = new RegExp(patternString.slice(0, -1));
     }
   }
-  
+
   const valido = pattern.test(inputUsuario); //comparamos el telefono introducido con el formato esperado
   if (!valido) {
     telefono.classList.add("invalido");
-    mensajeError.textContent = "Introduce un telefono movil de 9 digitos con prefijo +34";
+    mensajeError.textContent =
+      "Introduce un telefono movil de 9 digitos con prefijo +34";
   } else {
     if (telefono.classList.contains("invalido"))
       telefono.classList.remove("invalido");
@@ -77,7 +82,6 @@ function validarFormulario(event) {
   }
 
   return valido;
-  
 }
 
 /*
@@ -91,30 +95,30 @@ function validarFormulario(event) {
  * @returns true si la direccion es valida, false si no
  */
 
- function validarDireccion (){
+function validarDireccion() {
   //Seleccionamos el primer nodo hijo que deriva del nodo <p></p> cuya clase es "mensaje-error direccion-error"
   const mensajeErrorDireccion = document.querySelector(".direccion-error");
-  let valido=false;
+  let valido = false;
   const caracteresString = "^[A-Z]{1,}[0-9]{1,}";
   let caracteres = new RegExp(caracteresString);
 
   //En primer lugar, eliminamos los espacios duplicados y los espacios al comienzo y al final del input
-  let direccion=document.getElementById("ConText2");
-  let input= direccion.value.trim();
-  input.replace(/ {2,}/g, ' ');
+  let direccion = document.getElementById("ConText2");
+  let input = direccion.value.trim();
+  input.replace(/ {2,}/g, " ");
 
   //En segundo lugar, comprobamos que el input contiene, al menos, 40 caracteres y contiene una mayus y un numero
-  if (input.length<20 && caracteres.test(input)==false){
-    valido= false;
-  }else{
-    valido=true;
+  if (input.length < 20 && caracteres.test(input) == false) {
+    valido = false;
+  } else {
+    valido = true;
   }
-  
+
   //Validamos el contenido final
-  
+
   if (!valido) {
     direccion.classList.add("invalido");
-    mensajeErrorDireccion.textContent = 
+    mensajeErrorDireccion.textContent =
       "El campo direccion debe contener min 40 caracteres, una mayuscula y un numero";
   } else {
     if (direccion.classList.contains("invalido"))
@@ -123,9 +127,7 @@ function validarFormulario(event) {
   }
 
   return valido;
-
 }
-
 
 /*
  *============= Validacion email =============
@@ -140,37 +142,36 @@ function validarFormulario(event) {
  * @returns true si el email es válido, false si no
  */
 
- function validarEmail (){
+function validarEmail() {
   //Seleccionamos el primer nodo hijo que deriva del nodo <p> cuya clase es "mensaje-error email-error"
   const mensajeErrorEmail = document.querySelector(".email-error");
-  let valido=false;
-
+  let valido = false;
 
   /* El primer bloque que va desde el primer caracter hasta el anterior de la "@"
    * debe tener al menos un caracter en minisculas, mayusculas, numerico o un punto, guion o barra baja.
-   * El bloque que va desde el caracter después de la "@" y hasta el punto 
+   * El bloque que va desde el caracter después de la "@" y hasta el punto
    * debe tener al menos un caracter en minisculas, mayusculas, numerico o un guion.
    *  Detras del punto puede haber 2, 3 o 4 caracteres en mayúsculas o minusculas.
    */
-  const patternEmail= "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}$";
-  
+  const patternEmail = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,4}$";
+
   let patronEmail = new RegExp(patternEmail);
 
   //En primer lugar, eliminamos cualquier espacio introducido
-  let inputEmail=email.value.split(" ").join("");
+  let inputEmail = email.value.split(" ").join("");
 
   //En segundo lugar, comprobamos que el input cumple con el patron definido
-  if (patronEmail.test(inputEmail)==false){
-    valido= false;
-  }else{
-    valido=true;
+  if (patronEmail.test(inputEmail) == false) {
+    valido = false;
+  } else {
+    valido = true;
   }
-  
+
   //Validamos el contenido final
-  
+
   if (!valido) {
     email.classList.add("invalido");
-    mensajeErrorEmail.textContent = 
+    mensajeErrorEmail.textContent =
       "El email introducido no tiene el formato correcto";
   } else {
     if (email.classList.contains("invalido"))
@@ -179,9 +180,7 @@ function validarFormulario(event) {
   }
 
   return valido;
-
 }
-
 
 /*
  *============= Validacion minimo ingredientes =============
@@ -224,7 +223,7 @@ function validarMinIngredientes() {
 }
 
 /*
- *============= Funciones auxiliares =============
+ *============= Validar terminos =============
  */
 /**
  * Funcion que verifica que los terminos y condiciones han sido aceptados
@@ -247,9 +246,31 @@ function validarTerminos() {
 }
 
 /*
+ *============= Validacion restaurante =============
+ */
+
+/**
+ * Funcion que verifica que hay un restaurante seleccionado
+ * @returns true si se ha elegido restaurante, false si no
+ */
+function validarRestaurante() {
+  const opcionesRestaurante = restaurante.querySelectorAll('option:not([value=""])');
+
+  for (const rest of opcionesRestaurante) {
+    if (rest.selected) {
+      if (restaurante.classList.contains('invalido'))
+        restaurante.classList.remove('invalido')
+      return true;
+    }
+  }
+  restaurante.classList.add('invalido');
+  return false;
+}
+
+/*
  *============= Funciones auxiliares =============
  */
 
- /*
+/*
  *============= CALCULO DE PRECIO =============
  */
