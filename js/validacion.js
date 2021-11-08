@@ -248,14 +248,6 @@ function validarMasa(){
   const masaRadioButton = document.getElementsByName("masa");
 
   // Iteramos por los radio button para ver si alguno esta marcado
-
-  // for (let radiobutton of masaRadioButton) {
-  //   if (radiobutton.checked) {
-  //     valido = true;
-  //     break;
-  //   }
-  // }
-
   for(var i=0; i<masaRadioButton.length; i++) {
     if(masaRadioButton[i].checked) {
         valido = true;
@@ -264,12 +256,6 @@ function validarMasa(){
 }
 
   // Iteramos por los radio button para aniadir o quitar la clase "invalido"
-  // masaRadioButton.forEach((radiobutton) => {
-  //   if (!valido) radiobutton.classList.add("invalido");
-  //   else if (radiobutton.classList.contains("invalido"))
-  //     radiobutton.classList.remove("invalido");
-  // });
-
   for (var j=0; j<masaRadioButton.length; j++){
     if (!valido){
       masaRadioButton[j].classList.add("invalido");
