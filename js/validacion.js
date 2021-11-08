@@ -43,6 +43,7 @@ function validarFormulario(event) {
   }
 }
 
+
 /*
  *============= Validacion telefono =============
  */
