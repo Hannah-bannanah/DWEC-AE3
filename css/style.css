@@ -145,6 +145,12 @@ input[type="email"].invalido {
 	background-color: #f8aaaa !important;
 } */
 
+ .invalido {
+	background: #f8aaaa;
+	border: 1px solid #d60303;
+	outline:  1px solid #d60303;
+}
+
 input.invalido {
 	-webkit-appearance: none;
 	-moz-appearance: none;
