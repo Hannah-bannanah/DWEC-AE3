@@ -75,7 +75,7 @@ function validarTlf(event) {
   // para ajustarse a la longitud del input del usuario
   if (event.type === "keyup") {
     if (inputUsuario.length < 1) null;
-    // no modificamos el formato inicial
+    // no hacemos nada
     else if (inputUsuario.length < 5) {
       pattern = new RegExp(patternString.substring(0, inputUsuario.length + 2));
     } else if (inputUsuario.length < 12) {
@@ -308,6 +308,30 @@ function validarTamanio() {
   return valido;
 }
 
+/*
+ *============= Validacion restaurante =============
+ */
+
+/**
+ * Funcion que verifica que hay un restaurante seleccionado
+ * @returns true si se ha elegido restaurante, false si no
+ */
+function validarRestaurante() {
+  const opcionesRestaurante = restaurante.querySelectorAll(
+    'option:not([value=""])' //descartamos la opcion por defecto
+  );
+
+  for (const rest of opcionesRestaurante) {
+    if (rest.selected) {
+      if (restaurante.classList.contains("invalido"))
+        restaurante.classList.remove("invalido");
+      return true;
+    }
+  }
+  restaurante.classList.add("invalido");
+  return false;
+}
+
 /**
  * Funcion que verifica que los terminos y condiciones han sido aceptados
  * @returns true si se han aceptado, false si no
@@ -327,38 +351,6 @@ function validarTerminos() {
 
   return terminos.checked;
 }
-
-/*
- *============= Funciones auxiliares =============
- */
-
-/*
- *============= Validacion restaurante =============
- */
-
-/**
- * Funcion que verifica que hay un restaurante seleccionado
- * @returns true si se ha elegido restaurante, false si no
- */
-function validarRestaurante() {
-  const opcionesRestaurante = restaurante.querySelectorAll(
-    'option:not([value=""])'
-  );
-
-  for (const rest of opcionesRestaurante) {
-    if (rest.selected) {
-      if (restaurante.classList.contains("invalido"))
-        restaurante.classList.remove("invalido");
-      return true;
-    }
-  }
-  restaurante.classList.add("invalido");
-  return false;
-}
-
-/*
- *============= Funciones auxiliares =============
- */
 
 /*
  *============= CALCULO DE PRECIO =============
