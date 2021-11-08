@@ -17,6 +17,9 @@ window.onload = function () {
   //validacion inmediata del telefono
   telefono.addEventListener("keyup", validarTlf);
 
+  //validacion inmediata del email
+  email.addEventListener('keyup', validarEmail);
+
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
@@ -27,17 +30,17 @@ window.onload = function () {
 
   // validacion inmediata de seleccion de restaurante
   restaurante.onchange = validarRestaurante; //valida cada vez que cambia la seleccion
-  
+
   //validacion inmediata de los radio button MASA
   const masaRadioButton = document.getElementsByName("masa");
-  for(var i=0; i<masaRadioButton.length; i++) {
-    masaRadioButton[i].addEventListener("click", validarMasa)
+  for (var i = 0; i < masaRadioButton.length; i++) {
+    masaRadioButton[i].addEventListener("click", validarMasa);
   }
 
   //validacion inmediata de los radio button TAMANIO
   const tamanioRadioButton = document.getElementsByName("tamanio");
-  for(var i=0; i<tamanioRadioButton.length; i++) {
-    tamanioRadioButton[i].addEventListener("click", validarTamanio)
+  for (var i = 0; i < tamanioRadioButton.length; i++) {
+    tamanioRadioButton[i].addEventListener("click", validarTamanio);
   }
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
@@ -54,11 +57,9 @@ function validarFormulario(event) {
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
   if (!validarEmail()) valido = false;
-  // validarRadio();
-  // if (!validarRestaurante()) valido = false;
-  if (!validarMasa()) valido= false;
-  if (!validarTamanio()) valido= false;
-
+  if (!validarRestaurante()) valido = false;
+  if (!validarMasa()) valido = false;
+  if (!validarTamanio()) valido = false;
 
   if (!validarTerminos()) valido = false;
 
@@ -67,6 +68,7 @@ function validarFormulario(event) {
     event.preventDefault();
   }
 }
+
 
 /*
  *============= Validacion telefono =============
@@ -87,7 +89,7 @@ function validarTlf(event) {
   // para ajustarse a la longitud del input del usuario
   if (event.type === "keyup") {
     if (inputUsuario.length < 1) null;
-    // no modificamos el formato inicial
+    // no hacemos nada
     else if (inputUsuario.length < 5) {
       pattern = new RegExp(patternString.substring(0, inputUsuario.length + 2));
     } else if (inputUsuario.length < 12) {
@@ -144,8 +146,8 @@ function validarDireccion(evento) {
 
   if (!valido) {
     direccion.classList.add("invalido");
-    
-    mensajeErrorDireccion.textContent = 
+
+    mensajeErrorDireccion.textContent =
       "El campo direccion debe contener min 20 caracteres, un numero y comenzar con una mayuscula";
   } else {
     if (direccion.classList.contains("invalido")){
@@ -260,29 +262,29 @@ function validarMinIngredientes() {
  * @returns true si se han aceptado, false si no
  */
 
-function validarMasa(){
+function validarMasa() {
   let valido = false;
   const mensajeErrorMasa = document.querySelector(".error-masa");
   const masaRadioButton = document.getElementsByName("masa");
 
   // Iteramos por los radio button para ver si alguno esta marcado
-  for(var i=0; i<masaRadioButton.length; i++) {
-    if(masaRadioButton[i].checked) {
-        valido = true;
-        break;
+  for (var i = 0; i < masaRadioButton.length; i++) {
+    if (masaRadioButton[i].checked) {
+      valido = true;
+      break;
     }
-}
+  }
 
   // Iteramos por los radio button para aniadir o quitar la clase "invalido"
-  for (var j=0; j<masaRadioButton.length; j++){
-    if (!valido){
+  for (var j = 0; j < masaRadioButton.length; j++) {
+    if (!valido) {
       masaRadioButton[j].classList.add("invalido");
-    }else if (masaRadioButton[j].classList.contains("invalido")){
+    } else if (masaRadioButton[j].classList.contains("invalido")) {
       masaRadioButton[j].classList.remove("invalido");
     }
   }
 
-//Editamos el mensaje de error segun el resultado de la validacion
+  //Editamos el mensaje de error segun el resultado de la validacion
   if (valido) mensajeErrorMasa.textContent = "";
   else mensajeErrorMasa.textContent = "Elige el tipo de masa";
 
@@ -293,33 +295,57 @@ function validarMasa(){
  * Funcion que verifica que se ha seleccionado únicamente un tamanio.
  * @returns true si se han aceptado, false si no
  */
-function validarTamanio(){
+function validarTamanio() {
   let valido = false;
   const mensajeErrorTamanio = document.querySelector(".error-tamanio");
   const tamanioRadioButton = document.getElementsByName("tamanio");
 
   // Iteramos por los radio button para ver si alguno esta marcado
-  for(var i=0; i<tamanioRadioButton.length; i++) {
-    if(tamanioRadioButton[i].checked) {
-        valido = true;
-        break;
+  for (var i = 0; i < tamanioRadioButton.length; i++) {
+    if (tamanioRadioButton[i].checked) {
+      valido = true;
+      break;
     }
-}
+  }
 
   // Iteramos por los radio button para aniadir o quitar la clase "invalido"
-  for (var j=0; j<tamanioRadioButton.length; j++){
-    if (!valido){
+  for (var j = 0; j < tamanioRadioButton.length; j++) {
+    if (!valido) {
       tamanioRadioButton[j].classList.add("invalido");
-    }else if (tamanioRadioButton[j].classList.contains("invalido")){
+    } else if (tamanioRadioButton[j].classList.contains("invalido")) {
       tamanioRadioButton[j].classList.remove("invalido");
     }
   }
 
-//Editamos el mensaje de error segun el resultado de la validacion
+  //Editamos el mensaje de error segun el resultado de la validacion
   if (valido) mensajeErrorTamanio.textContent = "";
   else mensajeErrorTamanio.textContent = "Elige el tamaño de la pizza";
 
   return valido;
+}
+
+/*
+ *============= Validacion restaurante =============
+ */
+
+/**
+ * Funcion que verifica que hay un restaurante seleccionado
+ * @returns true si se ha elegido restaurante, false si no
+ */
+function validarRestaurante() {
+  const opcionesRestaurante = restaurante.querySelectorAll(
+    'option:not([value=""])' //descartamos la opcion por defecto
+  );
+
+  for (const rest of opcionesRestaurante) {
+    if (rest.selected) {
+      if (restaurante.classList.contains("invalido"))
+        restaurante.classList.remove("invalido");
+      return true;
+    }
+  }
+  restaurante.classList.add("invalido");
+  return false;
 }
 
 /**
@@ -341,37 +367,6 @@ function validarTerminos() {
 
   return terminos.checked;
 }
-
-/*
- *============= Funciones auxiliares =============
- */
-
-
-/*
- *============= Validacion restaurante =============
- */
-
-/**
- * Funcion que verifica que hay un restaurante seleccionado
- * @returns true si se ha elegido restaurante, false si no
- */
-function validarRestaurante() {
-  const opcionesRestaurante = restaurante.querySelectorAll('option:not([value=""])');
-
-  for (const rest of opcionesRestaurante) {
-    if (rest.selected) {
-      if (restaurante.classList.contains('invalido'))
-        restaurante.classList.remove('invalido')
-      return true;
-    }
-  }
-  restaurante.classList.add('invalido');
-  return false;
-}
-
-/*
- *============= Funciones auxiliares =============
- */
 
 /*
  *============= CALCULO DE PRECIO =============
