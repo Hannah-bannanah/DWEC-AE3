@@ -15,6 +15,15 @@ window.onload = function () {
     chkbox.addEventListener("click", validarMinIngredientes)
   );
 
+  //validacion inmediata de los radio button MASA
+  const masaRadioButton = document.getElementsByName("masa");
+  for(var i=0; i<masaRadioButton.length; i++) {
+    masaRadioButton[i].addEventListener("click", validarMasa)
+  }
+
+  //validacion inmediata de los radio button TAMANIO
+  
+
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
   terminos.addEventListener("click", validarTerminos);
@@ -87,7 +96,8 @@ function validarFormulario(event) {
  * Funcion que verifica que la direccion cumple los siguientes requisitos:
  *    - El campo contiene caracteres (no está relleno únicamente de espacios)
  *    - Debe contener al menos: una mayúscula, un número
- *    - La longitud mínima de la cadena es 40 caracteres
+ *    - La longitud mínima de la cadena es 20 caracteres
+ *    - La longitud máxima es 150 caracteres. Esto viene definido con el atributo "maxLength" en el HTML.
  * @returns true si la direccion es valida, false si no
  */
 
@@ -115,7 +125,7 @@ function validarFormulario(event) {
   if (!valido) {
     direccion.classList.add("invalido");
     mensajeErrorDireccion.textContent = 
-      "El campo direccion debe contener min 40 caracteres, una mayuscula y un numero";
+      "El campo direccion debe contener min 20 caracteres, un numero y comenzar con una mayuscula";
   } else {
     if (direccion.classList.contains("invalido"))
       direccion.classList.remove("invalido");
@@ -218,6 +228,66 @@ function validarMinIngredientes() {
 
   return valido; //devolvemos el resultado de la validacion
 }
+
+/*
+ *============= Validacion Radio buttons: tipo de masa y tamanio =============
+ */
+/**
+ * Funcion que verifica que se ha seleccionado únicamente un tipo de masa.
+ * @returns true si se han aceptado, false si no
+ */
+
+function validarMasa(){
+  let valido = false;
+  const mensajeErrorMasa = document.querySelector(".mensaje-error-masa");
+  const masaRadioButton = document.getElementsByName("masa");
+
+  // Iteramos por los radio button para ver si alguno esta marcado
+
+  // for (let radiobutton of masaRadioButton) {
+  //   if (radiobutton.checked) {
+  //     valido = true;
+  //     break;
+  //   }
+  // }
+
+  for(var i=0; i<masaRadioButton.length; i++) {
+    if(masaRadioButton[i].checked) {
+        valido = true;
+        break;
+    }
+}
+
+  // Iteramos por los radio button para aniadir o quitar la clase "invalido"
+  // masaRadioButton.forEach((radiobutton) => {
+  //   if (!valido) radiobutton.classList.add("invalido");
+  //   else if (radiobutton.classList.contains("invalido"))
+  //     radiobutton.classList.remove("invalido");
+  // });
+
+  for (var j=0; j<masaRadioButton.length; j++){
+    if (!valido){
+      masaRadioButton[j].classList.add("invalido");
+    }else if (masaRadioButton[j].classList.contains("invalido")){
+      masaRadioButton[j].classList.remove("invalido");
+    }
+  }
+
+//Editamos el mensaje de error segun el resultado de la validacion
+  if (valido) mensajeErrorMasa.textContent = "";
+  else mensajeErrorMasa.textContent = "Elige el tipo de masa";
+
+  return valido;
+}
+
+/**
+ * Funcion que verifica que se ha seleccionado únicamente un tamanio.
+ * @returns true si se han aceptado, false si no
+ */
+function validarTamanio(){
+  mensaje-error-tamanio
+}
+
 
 /*
  *============= Funciones auxiliares =============
