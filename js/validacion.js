@@ -4,6 +4,16 @@ window.onload = function () {
 
   // pruebas.addEventListener('click', validarRestaurante);
 
+  //validacion inmediata de la direccion
+  ConText2.addEventListener("keyup", function(){
+    var direccion = document.getElementById("ConText2");
+    var mensajeErrorDireccion=document.querySelector(".direccion-error");
+    if (direccion.classList.contains("invalido")){
+      direccion.classList.remove("invalido");
+    mensajeErrorDireccion.textContent = "";
+    }
+  });
+  
   //validacion inmediata del telefono
   telefono.addEventListener("keyup", validarTlf);
 
@@ -113,7 +123,7 @@ function validarTlf(event) {
  * @returns true si la direccion es valida, false si no
  */
 
-function validarDireccion() {
+function validarDireccion(evento) {
   //Seleccionamos el primer nodo hijo que deriva del nodo <p></p> cuya clase es "mensaje-error direccion-error"
   const mensajeErrorDireccion = document.querySelector(".direccion-error");
   let valido = false;
@@ -140,12 +150,14 @@ function validarDireccion() {
     mensajeErrorDireccion.textContent =
       "El campo direccion debe contener min 20 caracteres, un numero y comenzar con una mayuscula";
   } else {
-    if (direccion.classList.contains("invalido"))
+    if (direccion.classList.contains("invalido")){
       direccion.classList.remove("invalido");
     mensajeErrorDireccion.textContent = "";
+    }
   }
 
   return valido;
+
 }
 
 /*
