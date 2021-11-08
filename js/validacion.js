@@ -7,6 +7,9 @@ window.onload = function () {
   //validacion inmediata del telefono
   telefono.addEventListener('keyup', validarTlf);
 
+  //validacion inmediata del email
+  email.addEventListener('keyup', validarEmail);
+
   // validacion inmediata del minimo de ingredientes
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
