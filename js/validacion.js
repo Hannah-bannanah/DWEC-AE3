@@ -2,35 +2,36 @@ window.onload = function () {
   //event listeners
   submit.addEventListener("click", validarFormulario); //validacion del formulario completo
 
-  pruebas.addEventListener('click', validarNombre);
+  // pruebas.addEventListener("click", calcularPrecio);
 
-  
   //validacion inmediata de la direccion
-  ConText2.addEventListener("keyup", function(){
+  ConText2.addEventListener("keyup", function () {
     var direccion = document.getElementById("ConText2");
-    var mensajeErrorDireccion=document.querySelector(".direccion-error");
-    if (direccion.classList.contains("invalido")){
+    var mensajeErrorDireccion = document.querySelector(".direccion-error");
+    if (direccion.classList.contains("invalido")) {
       direccion.classList.remove("invalido");
-    mensajeErrorDireccion.textContent = "";
+      mensajeErrorDireccion.textContent = "";
     }
   });
-  
+
   //validacion inmediata del telefono
   telefono.addEventListener("keyup", validarTlf);
 
   //validacion inmediata del email
-  email.addEventListener('keyup', validarEmail);
+  email.addEventListener("keyup", validarEmail);
 
   // validacion inmediata del minimo de ingredientes
+  //y actualizacion del precio
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
   );
-  ingredientesChkboxes.forEach((chkbox) =>
-    chkbox.addEventListener("click", validarMinIngredientes)
-  );
+  ingredientesChkboxes.forEach((chkbox) => {
+    chkbox.addEventListener("change", validarMinIngredientes);
+    chkbox.onchange = calcularPrecio;
+  });
 
   // validacion inmediata de seleccion de restaurante
-  restaurante.onchange = validarRestaurante; //valida cada vez que cambia la seleccion
+  restaurante.addEventListener("change", validarRestaurante); //valida cada vez que cambia la seleccion
 
   //validacion inmediata de los radio button MASA
   const masaRadioButton = document.getElementsByName("masa");
@@ -39,9 +40,12 @@ window.onload = function () {
   }
 
   //validacion inmediata de los radio button TAMANIO
+  //y actualizacion del precio
+
   const tamanioRadioButton = document.getElementsByName("tamanio");
   for (var i = 0; i < tamanioRadioButton.length; i++) {
     tamanioRadioButton[i].addEventListener("click", validarTamanio);
+    tamanioRadioButton[i].onchange = calcularPrecio;
   }
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
@@ -53,7 +57,7 @@ window.onload = function () {
  */
 function validarFormulario(event) {
   let valido = true;
-  if (!validarNombre()) valido = false;
+  // if (!validarNombre()) valido = false;
   //if (!validarApellidos()) valido = false;
   if (!validarDireccion()) valido = false;
   if (!validarTlf(event)) valido = false;
@@ -62,11 +66,12 @@ function validarFormulario(event) {
   if (!validarRestaurante()) valido = false;
   if (!validarMasa()) valido = false;
   if (!validarTamanio()) valido = false;
-
   if (!validarTerminos()) valido = false;
 
   if (!valido) {
     alert("Parece que hay errores en el formulario");
+    event.preventDefault();
+  } else if (!confirm(`Pedir pizza por un precio de ${calcularPrecio()}?`)) {
     event.preventDefault();
   }
 }
@@ -74,18 +79,17 @@ function validarFormulario(event) {
  *============= Validacion campos de texto =============
  */
 
- function validarNombre() {
+function validarNombre() {
   //1- Quitar espacios
   //2- Validar que empieza por mayúscula
   //3- Validar que no tiene carácteres extraños
- 
-  const nombreUsuario = nombre.value.replace(/\s/g,'');
+
+  const nombreUsuario = nombre.value.replace(/\s/g, "");
   const pattern = /^[A-Z][a-zA-Z]*$/;
   let comprobar = pattern.test(nombreUsuario);
   console.log(comprobar);
   return comprobar;
- }
- 
+}
 
 /*
  *============= Validacion telefono =============
@@ -95,18 +99,17 @@ function validarFormulario(event) {
  * Funcion que verifica que el telefono tiene el formato de un movil espaniol
  * @returns true si el numero de telefono es valido, false si no
  */
-function validarTlf(event) {
+function validarTlf(evento) {
   const mensajeError = telefono.nextElementSibling;
 
-  let inputUsuario = telefono.value.split(" ").join(""); //elimina todos los espacios del input
+  let inputUsuario = telefono.value.replace(/\s/g, ""); //elimina todos los espacios del input
   const patternString = "^\\+346[0-9]{1,8}$";
-  let pattern = new RegExp(patternString); 
+  let pattern = new RegExp(patternString);
 
   // si estamos validando al teclear, modificamos el patron
   // para ajustarse a la longitud del input del usuario
-  if (event.type === "keyup") {
+  if (evento.type === "keyup") {
     if (inputUsuario.length < 1) null;
-    // no hacemos nada
     else if (inputUsuario.length < 5) {
       pattern = new RegExp(patternString.substring(0, inputUsuario.length + 2));
     } else if (inputUsuario.length < 12) {
@@ -140,7 +143,7 @@ function validarTlf(event) {
  * @returns true si la direccion es valida, false si no
  */
 
-function validarDireccion(evento) {
+function validarDireccion() {
   //Seleccionamos el primer nodo hijo que deriva del nodo <p></p> cuya clase es "mensaje-error direccion-error"
   const mensajeErrorDireccion = document.querySelector(".direccion-error");
   let valido = false;
@@ -167,14 +170,13 @@ function validarDireccion(evento) {
     mensajeErrorDireccion.textContent =
       "El campo direccion debe contener min 20 caracteres, un numero y comenzar con una mayuscula";
   } else {
-    if (direccion.classList.contains("invalido")){
+    if (direccion.classList.contains("invalido")) {
       direccion.classList.remove("invalido");
-    mensajeErrorDireccion.textContent = "";
+      mensajeErrorDireccion.textContent = "";
     }
   }
 
   return valido;
-
 }
 
 /*
@@ -242,10 +244,10 @@ function validarEmail() {
 function validarMinIngredientes() {
   let valido = false;
   const mensajeError = document.querySelector("#opciones-pizza p");
+
   const ingredientesChkboxes = document.querySelectorAll(
     '#opciones-pizza input[type="checkbox"]'
   );
-
   // iteramos por las checkboxes para ver si alguna esta marcada
   // y actualizar el resultado de la validacion
   for (let chkbox of ingredientesChkboxes) {
@@ -388,25 +390,41 @@ function validarTerminos() {
 /*
  *============= CALCULO DE PRECIO =============
  */
-/*function calcularPrecio(){
+/**
+ * Funcion que calcula el precio de la pizza segun
+ * la cantidad de ingredientes y el tamanio elegidos
+ * @returns el precio
+ */
+function calcularPrecio(evento) {
+  let precio = 0;
 
- let precio= 0;
- switch(document.getElementById("rbtam")) {
-     case pequeña :
-         precio+=5;
-         break;
-     case mediana :
-         precio+=10;
-         break;
-     case familiar :
-         precio+=15;
-         break;
- }
- for (let i=1; i<=5; i++){
-     let id= "cbox" + i;
-     if(document.getElementById(id)== checked)
-         precio += 1;
- }
- console.log(precio);
+  //calculamos el precio del tamanio elegido
+  const tamanio = document.querySelector('input[name="tamanio"]:checked');
+  const tamanioACobrar = tamanio === null ? "vacio" : tamanio.value; //para lidiar con el precio antes de que el usuario seleccione tamanio
+  switch (tamanioACobrar) {
+    case "pequeña":
+      precio += 5;
+      break;
+    case "mediana":
+      precio += 10;
+      break;
+    case "familiar":
+      precio += 15;
+      break;
+    default:
+      precio += 0;
+  }
+
+  //calculamos el precio de los ingredientes
+  const ingredientes = document.querySelectorAll(
+    '#opciones-pizza input[type="checkbox"]:checked'
+  );
+  ingredientes.forEach((ing) => (precio += 1));
+
+  //actualizamos el precio mostrado
+  const infoPrecio = document.getElementById("info-precio");
+  infoPrecio.textContent = `Precio: $${precio}`;
+  infoPrecio.classList.add("visible");
+
+  return precio;
 }
-*/
