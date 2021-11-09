@@ -2,8 +2,9 @@ window.onload = function () {
   //event listeners
   submit.addEventListener("click", validarFormulario); //validacion del formulario completo
 
-  // pruebas.addEventListener('click', validarRestaurante);
+  pruebas.addEventListener('click', validarNombre);
 
+  
   //validacion inmediata de la direccion
   ConText2.addEventListener("keyup", function(){
     var direccion = document.getElementById("ConText2");
@@ -52,7 +53,8 @@ window.onload = function () {
  */
 function validarFormulario(event) {
   let valido = true;
-  // validarCamposTexto();
+  if (!validarNombre()) valido = false;
+  //if (!validarApellidos()) valido = false;
   if (!validarDireccion()) valido = false;
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
@@ -68,7 +70,22 @@ function validarFormulario(event) {
     event.preventDefault();
   }
 }
+/*
+ *============= Validacion campos de texto =============
+ */
 
+ function validarNombre() {
+  //1- Quitar espacios
+  //2- Validar que empieza por mayúscula
+  //3- Validar que no tiene carácteres extraños
+ 
+  const nombreUsuario = nombre.value.replace(/\s/g,'');
+  const pattern = /^[A-Z][a-zA-Z]*$/;
+  let comprobar = pattern.test(nombreUsuario);
+  console.log(comprobar);
+  return comprobar;
+ }
+ 
 
 /*
  *============= Validacion telefono =============
@@ -83,7 +100,7 @@ function validarTlf(event) {
 
   let inputUsuario = telefono.value.split(" ").join(""); //elimina todos los espacios del input
   const patternString = "^\\+346[0-9]{1,8}$";
-  let pattern = new RegExp(patternString);
+  let pattern = new RegExp(patternString); 
 
   // si estamos validando al teclear, modificamos el patron
   // para ajustarse a la longitud del input del usuario
@@ -371,3 +388,25 @@ function validarTerminos() {
 /*
  *============= CALCULO DE PRECIO =============
  */
+/*function calcularPrecio(){
+
+ let precio= 0;
+ switch(document.getElementById("rbtam")) {
+     case pequeña :
+         precio+=5;
+         break;
+     case mediana :
+         precio+=10;
+         break;
+     case familiar :
+         precio+=15;
+         break;
+ }
+ for (let i=1; i<=5; i++){
+     let id= "cbox" + i;
+     if(document.getElementById(id)== checked)
+         precio += 1;
+ }
+ console.log(precio);
+}
+*/
