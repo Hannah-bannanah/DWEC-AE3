@@ -82,7 +82,7 @@ function validarFormulario(event) {
 function validarNombre() {
   const mensajeErrorNombre = document.querySelector(".nombre-error");
   const nombreUsuario = nombre.value.replace(/\s/g, "");
-  const pattern = /^[A-Z][a-zA-Z]*$/;
+  const pattern = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
   const valido = pattern.test(nombreUsuario);
   if (!valido) {
     apellidos.classList.add("invalido");
