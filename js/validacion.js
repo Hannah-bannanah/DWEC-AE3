@@ -2,7 +2,11 @@ window.onload = function () {
   //event listeners
   submit.addEventListener("click", validarFormulario); //validacion del formulario completo
 
-  pruebas.addEventListener("click", validarApellidos);
+  //validacion inmediata de nombre
+  nombre.addEventListener("keyup", validarNombre);
+
+  //validacion inmediata de apellidos
+  apellidos.addEventListener("keyup", validarApellidos);
 
   //validacion inmediata de la direccion
   ConText2.addEventListener("keyup", function () {
@@ -30,9 +34,6 @@ window.onload = function () {
     chkbox.onchange = calcularPrecio;
   });
 
-  // validacion inmediata de seleccion de restaurante
-  restaurante.addEventListener("change", validarRestaurante); //valida cada vez que cambia la seleccion
-
   //validacion inmediata de los radio button MASA
   const masaRadioButton = document.getElementsByName("masa");
   for (var i = 0; i < masaRadioButton.length; i++) {
@@ -47,6 +48,10 @@ window.onload = function () {
     tamanioRadioButton[i].addEventListener("click", validarTamanio);
     tamanioRadioButton[i].onchange = calcularPrecio;
   }
+
+  // validacion inmediata de seleccion de restaurante
+  restaurante.addEventListener("change", validarRestaurante); //valida cada vez que cambia la seleccion
+
   //validacion inmediata de los terminos y condiciones
   const terminos = document.getElementById("terminos");
   terminos.addEventListener("click", validarTerminos);
@@ -75,27 +80,30 @@ function validarFormulario(event) {
     event.preventDefault();
   }
 }
+
 /*
- *============= Validacion campos de texto =============
+ *============= Validacion nombre =============
  */
 
 function validarNombre() {
   const mensajeErrorNombre = document.querySelector(".nombre-error");
   const nombreUsuario = nombre.value.replace(/\s/g, "");
-  const pattern = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+  const pattern = /^[A-Z][a-zA-Z]*$/;
   const valido = pattern.test(nombreUsuario);
   if (!valido) {
-    apellidos.classList.add("invalido");
-    mensajeErrorNombre.textContent =
-      "Introduce un nombre válido";
+    nombre.classList.add("invalido");
+    mensajeErrorNombre.textContent = "Introduce un nombre válido";
   } else {
-    if (apellidos.classList.contains("invalido"))
-      apellidos.classList.remove("invalido");
+    if (nombre.classList.contains("invalido"))
+      nombre.classList.remove("invalido");
     mensajeErrorNombre.textContent = "";
   }
   return valido;
 }
 
+/*
+ *============= Validacion nombre =============
+ */
 function validarApellidos() {
   const mensajeErrorApellidos = document.querySelector(".apellidos-error");
   const apellidosUsuario = apellidos.value.replace(/\s/g, "");
@@ -103,8 +111,7 @@ function validarApellidos() {
   const valido = pattern.test(apellidosUsuario);
   if (!valido) {
     apellidos.classList.add("invalido");
-    mensajeErrorApellidos.textContent =
-      "Introduce un apellido válido";
+    mensajeErrorApellidos.textContent = "Introduce un apellido válido";
   } else {
     if (apellidos.classList.contains("invalido"))
       apellidos.classList.remove("invalido");
@@ -139,7 +146,8 @@ function validarTlf(evento) {
     }
   }
 
-  const valido = pattern.test(inputUsuario); //comparamos el telefono introducido con el formato esperado
+  //comparamos el telefono introducido con el formato esperado
+  const valido = pattern.test(inputUsuario);
   if (!valido) {
     telefono.classList.add("invalido");
     mensajeError.textContent =
@@ -257,7 +265,6 @@ function validarEmail() {
 /*
  *============= Validacion minimo ingredientes =============
  */
-//funcion en construccion
 /**
  * Funcion que valida que hay al menos un ingrediente seleccionado
  * @returns true si al menos un ingrediente ha sido seleccionado, false si no
@@ -417,7 +424,7 @@ function validarTerminos() {
  * la cantidad de ingredientes y el tamanio elegidos
  * @returns el precio
  */
-function calcularPrecio(evento) {
+function calcularPrecio() {
   let precio = 0;
 
   //calculamos el precio del tamanio elegido
