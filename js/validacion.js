@@ -2,7 +2,7 @@ window.onload = function () {
   //event listeners
   submit.addEventListener("click", validarFormulario); //validacion del formulario completo
 
-  // pruebas.addEventListener("click", calcularPrecio);
+  pruebas.addEventListener("click", validarApellidos);
 
   //validacion inmediata de la direccion
   ConText2.addEventListener("keyup", function () {
@@ -57,8 +57,8 @@ window.onload = function () {
  */
 function validarFormulario(event) {
   let valido = true;
-  // if (!validarNombre()) valido = false;
-  //if (!validarApellidos()) valido = false;
+  if (!validarNombre()) valido = false;
+  if (!validarApellidos()) valido = false;
   if (!validarDireccion()) valido = false;
   if (!validarTlf(event)) valido = false;
   if (!validarMinIngredientes()) valido = false;
@@ -80,15 +80,37 @@ function validarFormulario(event) {
  */
 
 function validarNombre() {
-  //1- Quitar espacios
-  //2- Validar que empieza por mayúscula
-  //3- Validar que no tiene carácteres extraños
-
+  const mensajeErrorNombre = document.querySelector(".nombre-error");
   const nombreUsuario = nombre.value.replace(/\s/g, "");
   const pattern = /^[A-Z][a-zA-Z]*$/;
-  let comprobar = pattern.test(nombreUsuario);
-  console.log(comprobar);
-  return comprobar;
+  const valido = pattern.test(nombreUsuario);
+  if (!valido) {
+    apellidos.classList.add("invalido");
+    mensajeErrorNombre.textContent =
+      "Introduce un nombre válido";
+  } else {
+    if (apellidos.classList.contains("invalido"))
+      apellidos.classList.remove("invalido");
+    mensajeErrorNombre.textContent = "";
+  }
+  return valido;
+}
+
+function validarApellidos() {
+  const mensajeErrorApellidos = document.querySelector(".apellidos-error");
+  const apellidosUsuario = apellidos.value.replace(/\s/g, "");
+  const pattern = /^[A-Z][a-zA-Z]*$/;
+  const valido = pattern.test(apellidosUsuario);
+  if (!valido) {
+    apellidos.classList.add("invalido");
+    mensajeErrorApellidos.textContent =
+      "Introduce un apellido válido";
+  } else {
+    if (apellidos.classList.contains("invalido"))
+      apellidos.classList.remove("invalido");
+    mensajeErrorApellidos.textContent = "";
+  }
+  return valido;
 }
 
 /*
