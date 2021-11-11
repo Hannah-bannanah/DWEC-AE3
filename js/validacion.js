@@ -84,11 +84,17 @@ function validarFormulario(event) {
 /*
  *============= Validacion nombre =============
  */
+/**
+ * Funcion que verifica que el nombre tiene un formato válido además de eliminar espacios innecesarios
+ * @returns true si el nombre es válido, false si no
+ */
 
 function validarNombre() {
   const mensajeErrorNombre = document.querySelector(".nombre-error");
   const nombreUsuario = nombre.value.replace(/\s/g, "");
-  const pattern = /^[A-Z][a-zA-Z]*$/;
+
+  // La expresión regular usada tanto en validarNombre() como en validarApellidos() incluye acentos y también la ñ
+  const pattern = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
   const valido = pattern.test(nombreUsuario);
   if (!valido) {
     nombre.classList.add("invalido");
@@ -101,13 +107,19 @@ function validarNombre() {
   return valido;
 }
 
+
 /*
- *============= Validacion nombre =============
+ *============= Validacion apellidos =============
+ */
+
+/**
+ * Funcion que verifica que los apellidos tienen un formato válido además de eliminar espacios innecesarios
+ * @returns true si el apellido es válido, false si no
  */
 function validarApellidos() {
   const mensajeErrorApellidos = document.querySelector(".apellidos-error");
   const apellidosUsuario = apellidos.value.replace(/\s/g, "");
-  const pattern = /^[A-Z][a-zA-Z]*$/;
+  const pattern =  /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
   const valido = pattern.test(apellidosUsuario);
   if (!valido) {
     apellidos.classList.add("invalido");
