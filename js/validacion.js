@@ -91,11 +91,20 @@ function validarFormulario(event) {
 
 function validarNombre() {
   const mensajeErrorNombre = document.querySelector(".nombre-error");
+
+  // Con esta línea de código eliminamos los espacios que pueda haber al principio o al final para no tenerlos en cuenta 
+  //de cara a compararlo con el patrón siguiente
   const nombreUsuario = nombre.value.replace(/\s/g, "");
 
   // La expresión regular usada tanto en validarNombre() como en validarApellidos() incluye acentos y también la ñ
-  const pattern = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+  //También se asegura de que la primera letra del nombre y apellido sea una mayúscula
+  //Del mismo modo se asegura de que el input no se componga solo de espacios en blanco
+  const pattern = /^[A-Z][a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+
+  //A través de test comparamos el input con el patrón (al cual se le han eliminado los espacios)
   const valido = pattern.test(nombreUsuario);
+
+  // Si el test devuelve false, aparecerá un mensaje de error que pedirá un input diferente
   if (!valido) {
     nombre.classList.add("invalido");
     mensajeErrorNombre.textContent = "Introduce un nombre válido";
@@ -110,16 +119,17 @@ function validarNombre() {
 
 /*
  *============= Validacion apellidos =============
- */
+*/
 
 /**
  * Funcion que verifica que los apellidos tienen un formato válido además de eliminar espacios innecesarios
  * @returns true si el apellido es válido, false si no
+>>>>>>> Stashed changes
  */
 function validarApellidos() {
   const mensajeErrorApellidos = document.querySelector(".apellidos-error");
   const apellidosUsuario = apellidos.value.replace(/\s/g, "");
-  const pattern =  /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+  const pattern =  /^[A-Z][a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
   const valido = pattern.test(apellidosUsuario);
   if (!valido) {
     apellidos.classList.add("invalido");
