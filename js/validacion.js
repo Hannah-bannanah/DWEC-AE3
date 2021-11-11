@@ -255,7 +255,7 @@ function validarEmail() {
    * debe tener al menos un caracter en minisculas, mayusculas, numerico o un guion.
    *  Detras del punto puede haber 2, 3 o 4 caracteres en mayúsculas o minusculas.
    */
-  const patternEmail = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,4}$";
+  const patternEmail = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}$";
 
   let patronEmail = new RegExp(patternEmail);
 
