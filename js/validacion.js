@@ -76,7 +76,9 @@ function validarFormulario(event) {
   if (!valido) {
     alert("Parece que hay errores en el formulario");
     event.preventDefault();
-  } else if (!confirm(`Pedir pizza por un precio de ${calcularPrecio()}?`)) {
+  } else if (
+    !confirm(`Pedir pizza por un precio de ${calcularPrecio()}\u20AC?`)
+  ) {
     event.preventDefault();
   }
 }
@@ -475,7 +477,7 @@ function calcularPrecio() {
 
   //actualizamos el precio mostrado
   const infoPrecio = document.getElementById("info-precio");
-  infoPrecio.textContent = `Precio: $${precio}`;
+  infoPrecio.textContent = `Precio: ${precio}\u20AC`;
   infoPrecio.classList.add("visible");
 
   return precio;
